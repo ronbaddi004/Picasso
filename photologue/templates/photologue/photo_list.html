@@ -1,0 +1,40 @@
+{% extends "photologue/root.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "All photos" %}{% endblock %}
+
+{% block content %}
+
+    <div class="row col-lg-12">
+        <h1 class="page-header">{% trans "All photos" %}</h1>
+	</div>
+	<form action="" method="get">
+		<input type="text" name="q" placeholder="Search Here" id="" value="{{ request.GET.q }}">
+		<input type="submit" value="Search">
+	</form>
+
+	<div class="row col-lg-12">
+		{% for photo in object_list %}
+			<a href="{{ photo.get_absolute_url }}">
+					<img src="{{ photo.get_thumbnail_url }}" class="thumbnail" alt="{{ photo.title }}">
+			</a>
+		{% endfor %}
+	</div>
+
+	<!--
+			<div class="row col-lg-12">
+				<ul class="pager">
+					<li class="disabled">
+						<a href="#">{% trans "Previous" %}</a>
+					</li>
+					<li class="number-of-pages">
+						{% blocktrans with page_number=page_obj.number total_pages=page_obj.paginator.num_pages %} page 1 of 1 {% endblocktrans %}
+					</li>
+					<li class="disabled">
+						<a href="#">{% trans "Next" %}</a>
+					</li>
+				</ul>
+			</div> -->
+		{% include "photologue/includes/paginator.html" %}
+	
+{% endblock %}
